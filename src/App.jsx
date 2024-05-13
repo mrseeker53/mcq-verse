@@ -9,19 +9,19 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout></Layout>,
+      element: <Layout />,
       children: [
         {
-          path: '/', 
-          element: <Home/>
+          path: '/',
+          element: <Home />
         },
         {
-          path: '/questions', 
-          element: <Questions></Questions>
+          path: '/questions',
+          element: <Questions />
         },
         {
-          path: '/add', 
-          element: <Add></Add>
+          path: '/add',
+          element: <Add />
         }
       ]
     }
