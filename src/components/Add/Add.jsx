@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { DataContext } from "../Context/DataContext";
-import Preview from "../Preview/Preview";
 
 const Add = () => {
   // Use useContext to access addQuestion from DataContext
@@ -31,12 +30,12 @@ const Add = () => {
   };
 
   return (
-    <div className="hero place-items-start bg-slate-600 flex flex-col md:flex-row px-24">
+    <div className="hero bg-slate-600">
       {/* Add the question */}
-      <form className="card-body py-24 flex-1" onSubmit={handleSubmit}>
+      <form className="card-body py-24" onSubmit={handleSubmit}>
         <div className="form-control">
           <label className="label">
-            <span className="label-text text-slate-200 text-3xl pl-16 md:pl-24 pb-4">Add The Question</span>
+            <span className="label-text text-slate-200 text-3xl text-center pb-4 pl-16">Add The Question</span>
           </label>
           <hr className="pb-12" />
           <input
@@ -108,11 +107,6 @@ const Add = () => {
           <button className="btn btn-primary w-72">SAVE</button>
         </div>
       </form>
-
-      {/* Preview the question */}
-      <div className="card w-full bg-slate-550 shadow-xl mr-8 ml-8 mb-28 md:my-20 flex-1">
-        <Preview />
-      </div>
     </div>
   );
 };

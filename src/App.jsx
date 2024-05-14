@@ -4,6 +4,7 @@ import Home from './components/Home/Home';
 import Questions from './components/Questions/Questions';
 import Add from './components/Add/Add';
 import Layout from './layout/Layout';
+import Preview from './components/Preview/Preview';
 
 function App() {
   const router = createBrowserRouter([
@@ -16,12 +17,16 @@ function App() {
           element: <Home />
         },
         {
-          path: '/questions',
-          element: <Questions />
+          path: '/addquestion',
+          element: <Add />
         },
         {
-          path: '/add',
-          element: <Add />
+          path: '/newquestion',
+          element: <Preview />
+        },
+        {
+          path: '/allquestions',
+          element: <Questions />
         }
       ]
     }

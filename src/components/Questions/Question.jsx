@@ -6,10 +6,10 @@ const Question = ({ quiz }) => {
     const { question, option1, option2, option3, option4, ans } = quiz;
 
     return (
-        <div className="container px-20">
+        <div className="container">
             <div className="card w-full bg-slate-550 shadow-xl ml-1">
                 <div className="card-body">
-                    <h2 className="card-title">{question}</h2>
+                    <h2 className="card-title pb-4">{question}</h2>
                     <p className='text-xl text-start'>1. {option1}</p>
                     <p className='text-xl text-start'>2. {option2}</p>
                     <p className='text-xl text-start'>3. {option3}</p>
