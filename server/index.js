@@ -66,6 +66,20 @@ app.put('/update/:id', (req, res) => {
 })
 
 
+// Delete data
+app.delete('/delete/:id', (req, res) => {
+    const sql = "delete from book where id = ?";
+    const id = req.params.id;
+    db.query(sql,[...values, id], (err, data) => {
+        if(err) {
+            return res.json({Error: "Error"});
+        }
+        return res.json(data);
+    })
+})
+
+
+
 
 // Set the server listening port as 3030
 app.listen(3030, ()=> {
