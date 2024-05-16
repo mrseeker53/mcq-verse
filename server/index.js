@@ -30,6 +30,23 @@ app.get('/', (req, res) => {
     })
 })
 
+// Create data
+app.post('/create', (req, res) => {
+    const sql = "INSERT INTO book (publisher, name, date) VALUES (?)";
+    const values = [
+        req.body.publisher,
+        req.body.name,
+        req.body.date
+    ]
+    db.query(sql,[values], (err, data) => {
+        if(err) {
+            return res.json({Error: "Error"});
+        }
+        return res.json(data);
+    })
+})
+
+
 
 // Set the server listening port as 3030
 app.listen(3030, ()=> {
