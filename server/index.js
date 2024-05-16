@@ -19,6 +19,17 @@ const db = mysql.createConnection({
 });
 
 
+// Read data
+app.get('/', (req, res) => {
+    const sql = "SELECT * FROM book";
+    db.query(sql, (err, data) => {
+        if(err) {
+            return res.json({Error: "Error"});
+        }
+        return res.json(data);
+    })
+})
+
 
 // Set the server listening port as 3030
 app.listen(3030, ()=> {
