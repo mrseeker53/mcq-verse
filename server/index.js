@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
     })
 })
 
+
 // Create data
 app.post('/create', (req, res) => {
     const sql = "INSERT INTO book (publisher, name, date) VALUES (?)";
@@ -39,6 +40,24 @@ app.post('/create', (req, res) => {
         req.body.date
     ]
     db.query(sql,[values], (err, data) => {
+        if(err) {
+            return res.json({Error: "Error"});
+        }
+        return res.json(data);
+    })
+})
+
+
+// Update data
+app.put('/update/:id', (req, res) => {
+    const sql = "update book set publisher = ?, name = ?, date = ?, where id = ?";
+    const values = [
+        req.body.publisher,
+        req.body.name,
+        req.body.date
+    ]
+    const id = req.params.id;
+    db.query(sql,[...values, id], (err, data) => {
         if(err) {
             return res.json({Error: "Error"});
         }
