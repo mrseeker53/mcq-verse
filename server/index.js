@@ -10,6 +10,15 @@ app.use(express.json());
 app.use(cors());
 
 
+// Create mysql database connection 
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "crud"
+});
+
+
 
 // Set the server listening port as 3030
 app.listen(3030, ()=> {
