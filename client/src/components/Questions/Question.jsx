@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { DataContext } from "../Context/DataContext";
+/* eslint-disable react/prop-types */
+import React from "react";
 
 const Question = ({ quiz }) => {
     // Destructuring

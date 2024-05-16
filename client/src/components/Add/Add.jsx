@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { DataContext } from "../Context/DataContext";
+import axios from 'axios';
 
 const Add = () => {
   // Use useContext to access addQuestion from DataContext
@@ -15,19 +16,23 @@ const Add = () => {
     ans: ""
   });
 
-  // Update form data state
+  // Function to handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission events and prevent the default behavior to enable custom form submission logic
+  // Function to submit the dorm data using Axios
   const handleSubmit = (e) => {
     // Prevent default form submission behavior (page reload)
     e.preventDefault();
 
     // Call addQuestion function to add the question
     addQuestion(formData);
-  };
+
+      axios.post('http://localhost:3030/add', {formData})
+      .then(res => console.log(res))
+      .then(err => console.log(err))
+  }
 
   return (
     <div className="hero bg-slate-600">

@@ -32,12 +32,15 @@ app.get('/', (req, res) => {
 
 
 // Create data
-app.post('/create', (req, res) => {
-    const sql = "INSERT INTO book (publisher, name, date) VALUES (?)";
+app.post('/add', (req, res) => {
+    const sql = "INSERT INTO mcq (question, option1, option2, option3, option4, ans) VALUES (?)";
     const values = [
-        req.body.publisher,
-        req.body.name,
-        req.body.date
+        req.body.question,
+        req.body.option1,
+        req.body.option2,
+        req.body.option3,
+        req.body.option4,
+        req.body.ans
     ]
     db.query(sql,[values], (err, data) => {
         if(err) {
@@ -77,7 +80,6 @@ app.delete('/delete/:id', (req, res) => {
         return res.json(data);
     })
 })
-
 
 
 
