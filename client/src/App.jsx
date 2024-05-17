@@ -2,9 +2,9 @@ import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Questions from './components/Questions/Questions';
-import Add from './components/Add/Add';
+import AddQuestion from './components/AddQuestion/AddQuestion';
 import Layout from './layout/Layout';
-import Preview from './components/Preview/Preview';
+import NewQuestions from './components/NewQuestions/NewQuestions';
 
 function App() {
   const router = createBrowserRouter([
@@ -18,11 +18,11 @@ function App() {
         },
         {
           path: '/addquestion',
-          element: <Add />
+          element: <AddQuestion />
         },
         {
           path: '/newquestion',
-          element: <Preview />
+          element: <NewQuestions />
         },
         {
           path: '/allquestions',

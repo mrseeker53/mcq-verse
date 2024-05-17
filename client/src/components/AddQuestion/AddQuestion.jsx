@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { DataContext } from "../Context/DataContext";
 import axios from "axios";
 
-const Add = () => {
+const AddQuestion = () => {
   // Use useContext to access addQuestion from DataContext
   const { addQuestion } = useContext(DataContext);
 
@@ -31,7 +31,7 @@ const Add = () => {
 
     // Send form data to the server
     axios
-      .post("http://localhost:3030/add", formData)
+      .post("http://localhost:3030/addquestion", formData)
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
   };
@@ -130,4 +130,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default AddQuestion;
