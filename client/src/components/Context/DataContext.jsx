@@ -16,7 +16,7 @@ const DataProvider = ({ children }) => {
 
     return (
         // Wrap the children consumer with value
-        <DataContext.Provider value={{ quesData, addQuestion }}>
+        <DataContext.Provider value={{ quesData, setQuesData, addQuestion }}>
             {children}
         </DataContext.Provider>
     );
