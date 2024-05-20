@@ -15,13 +15,13 @@ const NewQuestions = () => {
     axios
       .get("http://localhost:3030")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setData(res.data.data);
         // update DataContext with fetched data
         setQuesData(res.data.data);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [setQuesData]);
 
   return (
     <div className="bg-slate-600 py-20 px-0 md:px-24">
@@ -35,7 +35,10 @@ const NewQuestions = () => {
           data && data.length > 0 ? (
             // Map over data to render each question
             data.map((ques, index) => (
-              <NewQuestion key={index} ques={ques}></NewQuestion>
+              <NewQuestion
+                key={index}
+                ques={ques}
+              />
             ))
           ) : (
             // Display a message if quesData is empty or not available

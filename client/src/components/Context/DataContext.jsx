@@ -14,9 +14,16 @@ const DataProvider = ({ children }) => {
         setQuesData([...quesData, quesObject]);
     };
 
+    // Create function to update a specific question by id
+    const updateQuestion = (id, updatedQues) => {
+        setQuesData(
+            quesData.map((ques) => (ques.id === id ? updatedQues : ques))
+        );
+    };
+
     return (
         // Wrap the children consumer with value
-        <DataContext.Provider value={{ quesData, setQuesData, addQuestion }}>
+        <DataContext.Provider value={{ quesData, setQuesData, addQuestion, updateQuestion }}>
             {children}
         </DataContext.Provider>
     );

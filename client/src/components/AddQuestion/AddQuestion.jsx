@@ -40,6 +40,7 @@ const AddQuestion = () => {
     <div className="hero bg-slate-600">
       {/* Add the question */}
       <form className="card-body py-24" onSubmit={handleSubmit}>
+        {/* Title & Question */}
         <div className="form-control">
           <label className="label">
             <span className="label-text text-slate-200 text-3xl text-center pb-4 pl-16">
@@ -56,6 +57,7 @@ const AddQuestion = () => {
             required
           />
         </div>
+        {/* Options & Answer */}
         <div className="form-control py-5">
           <label className="label cursor-pointer">
             <span className="label-text text-lg">
@@ -123,7 +125,7 @@ const AddQuestion = () => {
           </label>
         </div>
         <div className="form-control pl-8">
-          <button className="btn btn-primary w-72">SAVE</button>
+          <button className="btn btn-primary w-24">SAVE</button>
         </div>
       </form>
     </div>

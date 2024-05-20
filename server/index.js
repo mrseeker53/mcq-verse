@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
   const sql = "SELECT * FROM mcq";
   db.query(sql, (err, data) => {
     if (err) {
+      console.error(err);
       return res.json({ Error: "Error selecting data" });
     }
     return res.json({ Message: "Data selected successfully", data });
@@ -53,6 +54,7 @@ app.post("/addquestion", (req, res) => {
   ];
   db.query(sql, values, (err, data) => {
     if (err) {
+      console.error(err);
       return res.json({ Error: "Error inserting data" });
     }
     return res.json({ Message: "Data inserted successfully", data });
@@ -72,8 +74,10 @@ app.put("/update/:id", (req, res) => {
     req.body.ans,
   ];
   const id = req.params.id;
+  console.log(id);
   db.query(sql, [...values, id], (err, data) => {
     if (err) {
+      console.error(err);
       return res.json({ Error: "Error updating data" });
     }
     return res.json({ Message: "Data updated successfully", data });
@@ -86,6 +90,7 @@ app.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
   db.query(sql, [id], (err, data) => {
     if (err) {
+      console.error(err);
       return res.json({ Error: "Error deleting data" });
     }
     return res.json({ Message: "Data deleted successfully", data });
