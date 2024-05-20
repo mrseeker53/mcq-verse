@@ -125,11 +125,11 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
       </div>
       {/* Button */}
       <div className="flex">
-        <button className="btn btn-success w-24 mr-4" type="submit">
-          Save
+        <button className="btn btn-success w-24 mr-6" type="submit">
+          SAVE
         </button>
-        <button className="bg-red-600" type="button" onClick={onCancel}>
-          Cancel
+        <button className="bg-yellow-500 text-black py-2" type="button" onClick={onCancel}>
+          CANCEL
         </button>
       </div>
     </form>

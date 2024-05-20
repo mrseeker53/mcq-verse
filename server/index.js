@@ -74,7 +74,6 @@ app.put("/update/:id", (req, res) => {
     req.body.ans,
   ];
   const id = req.params.id;
-  console.log(id);
   db.query(sql, [...values, id], (err, data) => {
     if (err) {
       console.error(err);
@@ -91,9 +90,12 @@ app.delete("/delete/:id", (req, res) => {
   db.query(sql, [id], (err, data) => {
     if (err) {
       console.error(err);
-      return res.json({ Error: "Error deleting data" });
+      return res.status(500).json({ error: "Error deleting data" });
     }
-    return res.json({ Message: "Data deleted successfully", data });
+    if (data.affectedRows === 0) {
+      return res.status(404).json({ error: "Question not found" });
+    }
+    return res.status(200).json({ message: "Data deleted successfully", data });
   });
 });
 

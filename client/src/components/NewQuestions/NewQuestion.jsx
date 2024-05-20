@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { DataContext } from "../Context/DataContext";
 import EditQuestion from "../EditQuestion/EditQuestion";
+import axios from "axios";
 
-const NewQuestion = ({ ques }) => {
+const NewQuestion = ({ ques, onDelete }) => {
   // Destructuring
   const { question, option1, option2, option3, option4, ans } = ques;
 
@@ -10,6 +11,7 @@ const NewQuestion = ({ ques }) => {
   const { setQuesData } = useContext(DataContext);
   const [isEditing, setIsEditing] = useState(false);
 
+  // Update operation
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -25,11 +27,25 @@ const NewQuestion = ({ ques }) => {
     setIsEditing(false);
   };
 
+  // Delete operation
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:3030/delete/${ques.id}`)
+      .then((res) => {
+        onDelete(ques.id);
+      })
+      .catch((err) => console.error(err));
+  };
+
   return (
     <div className="container">
       <div className="card w-full bg-slate-550 shadow-xl ml-1">
         {isEditing ? (
-          <EditQuestion ques={ques} onSave={handleSave} onCancel={handleCancel} />
+          <EditQuestion
+            ques={ques}
+            onSave={handleSave}
+            onCancel={handleCancel}
+          />
         ) : (
           <div className="card-body">
             <h2 className="card-title pb-4">{question}</h2>
@@ -40,9 +56,15 @@ const NewQuestion = ({ ques }) => {
             <p className="text-xl font-semibold text-slate-300 mt-5 text-start pb-6">
               Answer: {ans}
             </p>
-            <button className="btn btn-primary w-24" onClick={handleEditClick}>
-              EDIT
-            </button>
+            <span className="flex">
+              <button
+                className="btn btn-primary w-24 mr-6"
+                onClick={handleEditClick}
+              >
+                EDIT
+              </button>
+              <button className="bg-red-600 py-2" onClick={handleDelete}>DELETE</button>
+            </span>
           </div>
         )}
       </div>
