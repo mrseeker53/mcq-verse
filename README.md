@@ -82,9 +82,9 @@ MCQ-Verse is a web application for managing multiple-choice questions (MCQs). It
 
     - Click on the "Delete" button next to the question you want to remove.
 
-## **API Endpoints**
+## API Endpoints
 
-## GET /
+### GET /
 
 - **Description:** Fetch all MCQs.
 - **Response:** JSON array of MCQ objects.
