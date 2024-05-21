@@ -1,41 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const EditQuestion = ({ ques, onSave, onCancel }) => {
-  const [formData, setFormData] = useState({
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    ans: "",
-  });
+  // Initialize the useForm hook
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   // Update formData when ques changes
   useEffect(() => {
     if (ques) {
-      setFormData({
-        question: ques.question,
-        option1: ques.option1,
-        option2: ques.option2,
-        option3: ques.option3,
-        option4: ques.option4,
-        ans: ques.ans,
-      });
+        setValue("question", ques.question,);
+        setValue("option1", ques.option1,);
+        setValue("option2", ques.option2,);
+        setValue("option3", ques.option3,);
+        setValue("option4", ques.option4,);
+        setValue("ans", ques.ans,);
     }
-  }, [ques]);
+  }, [ques, setValue]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
     if (ques && ques.id) {
       axios
-        .put(`http://localhost:3030/update/${ques.id}`, formData)
+        .put(`http://localhost:3030/update/${ques.id}`, data)
         .then((res) => {
-          onSave({ ...formData, id: ques.id }); // Pass the updated data back to the parent
+          onSave({ ...data, id: ques.id }); // Pass the updated data back to the parent
         })
         .catch((err) => console.error(err));
     } else {
@@ -44,7 +37,7 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {/* Question */}
       <div className="form-control">
         <input
@@ -52,9 +45,11 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
           name="question"
           placeholder="Add your question"
           className="input input-bordered bg-slate-500 text-slate-100 text-lg w-96"
-          onChange={handleChange}
-          required
+          {...register("question", {required: true})}
         />
+        {errors.question && (
+          <span className="text-red-500">This field is required</span>
+        )}
       </div>
       {/* Options */}
       <div className="form-control py-5">
@@ -66,11 +61,13 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option1"
               placeholder="Option 1"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              onChange={handleChange}
-              required
+              {...register("option1", {required: true})}
             />
           </span>
         </label>
+        {errors.option1 && (
+          <span className="text-red-500">This field is required</span>
+        )}
         <label className="label cursor-pointer">
           <span className="label-text text-lg">
             2.
@@ -79,11 +76,13 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option2"
               placeholder="Option 2"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              onChange={handleChange}
-              required
+              {...register("option2", {required: true})}
             />
           </span>
         </label>
+        {errors.option2 && (
+          <span className="text-red-500">This field is required</span>
+        )}
         <label className="label cursor-pointer">
           <span className="label-text text-lg">
             3.
@@ -92,11 +91,13 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option3"
               placeholder="Option 3"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              onChange={handleChange}
-              required
+              {...register("option3", {required: true})}
             />
           </span>
         </label>
+        {errors.option3 && (
+          <span className="text-red-500">This field is required</span>
+        )}
         <label className="label cursor-pointer">
           <span className="label-text text-lg">
             4.
@@ -105,11 +106,13 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option4"
               placeholder="Option 4"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              onChange={handleChange}
-              required
+              {...register("option4", {required: true})}
             />
           </span>
         </label>
+        {errors.option4 && (
+          <span className="text-red-500">This field is required</span>
+        )}
         <label className="label pt-7 cursor-pointer">
           <span className="label-text text-lg">
             <input
@@ -117,18 +120,24 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="ans"
               placeholder="Answer"
               className="input bg-slate-500 text-slate-100 text-lg ml-7"
-              onChange={handleChange}
-              required
+              {...register("ans", {required: true})}
             />
           </span>
         </label>
+        {errors.ans && (
+          <span className="text-red-500">This field is required</span>
+        )}
       </div>
       {/* Button */}
       <div className="flex">
         <button className="btn btn-success w-24 mr-6" type="submit">
           SAVE
         </button>
-        <button className="bg-yellow-500 text-black py-2" type="button" onClick={onCancel}>
+        <button
+          className="bg-yellow-500 text-black py-2"
+          type="button"
+          onClick={onCancel}
+        >
           CANCEL
         </button>
       </div>
