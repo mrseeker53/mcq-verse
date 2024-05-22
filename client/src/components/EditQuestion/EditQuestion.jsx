@@ -1,34 +1,32 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { updateQuestion } from "../Redux/questionsSlice";
 import axios from "axios";
 
 const EditQuestion = ({ ques, onSave, onCancel }) => {
   // Initialize the useForm hook
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   // Update formData when ques changes
   useEffect(() => {
     if (ques) {
-        setValue("question", ques.question,);
-        setValue("option1", ques.option1,);
-        setValue("option2", ques.option2,);
-        setValue("option3", ques.option3,);
-        setValue("option4", ques.option4,);
-        setValue("ans", ques.ans,);
+      setValue("question", ques.question);
+      setValue("option1", ques.option1);
+      setValue("option2", ques.option2);
+      setValue("option3", ques.option3);
+      setValue("option4", ques.option4);
+      setValue("ans", ques.ans);
     }
   }, [ques, setValue]);
 
-  const onSubmit = (data) => {
+  const onSubmit = (formData) => {
     if (ques && ques.id) {
       axios
-        .put(`http://localhost:3030/update/${ques.id}`, data)
+        .put(`http://localhost:3030/update/${ques.id}`, formData)
         .then((res) => {
-          onSave({ ...data, id: ques.id }); // Pass the updated data back to the parent
+          dispatch(updateQuestion({ id: ques.id, data: formData }));
+          onSave({ ...formData, id: ques.id }); // Pass the updated data back to the parent
         })
         .catch((err) => console.error(err));
     } else {
@@ -45,11 +43,9 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
           name="question"
           placeholder="Add your question"
           className="input input-bordered bg-slate-500 text-slate-100 text-lg w-96"
-          {...register("question", {required: true})}
+          {...register("question")}
+          required
         />
-        {errors.question && (
-          <span className="text-red-500">This field is required</span>
-        )}
       </div>
       {/* Options */}
       <div className="form-control py-5">
@@ -61,13 +57,11 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option1"
               placeholder="Option 1"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              {...register("option1", {required: true})}
+              {...register("option1")}
+              required
             />
           </span>
         </label>
-        {errors.option1 && (
-          <span className="text-red-500">This field is required</span>
-        )}
         <label className="label cursor-pointer">
           <span className="label-text text-lg">
             2.
@@ -76,13 +70,11 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option2"
               placeholder="Option 2"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              {...register("option2", {required: true})}
+              {...register("option2")}
+              required
             />
           </span>
         </label>
-        {errors.option2 && (
-          <span className="text-red-500">This field is required</span>
-        )}
         <label className="label cursor-pointer">
           <span className="label-text text-lg">
             3.
@@ -91,13 +83,11 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option3"
               placeholder="Option 3"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              {...register("option3", {required: true})}
+              {...register("option3")}
+              required
             />
           </span>
         </label>
-        {errors.option3 && (
-          <span className="text-red-500">This field is required</span>
-        )}
         <label className="label cursor-pointer">
           <span className="label-text text-lg">
             4.
@@ -106,13 +96,11 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="option4"
               placeholder="Option 4"
               className="input bg-slate-500 text-slate-100 text-lg ml-3"
-              {...register("option4", {required: true})}
+              {...register("option4")}
+              required
             />
           </span>
         </label>
-        {errors.option4 && (
-          <span className="text-red-500">This field is required</span>
-        )}
         <label className="label pt-7 cursor-pointer">
           <span className="label-text text-lg">
             <input
@@ -120,13 +108,11 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
               name="ans"
               placeholder="Answer"
               className="input bg-slate-500 text-slate-100 text-lg ml-7"
-              {...register("ans", {required: true})}
+              {...register("ans")}
+              required
             />
           </span>
         </label>
-        {errors.ans && (
-          <span className="text-red-500">This field is required</span>
-        )}
       </div>
       {/* Button */}
       <div className="flex">

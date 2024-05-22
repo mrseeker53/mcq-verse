@@ -1,15 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import DataProvider from './components/Context/DataContext.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { Provider } from "react-redux";
+import { store } from "./components/Redux/store";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
 
-  // Wrap the context consumer with context Provider
-    <DataProvider>
-      <App />
-    </DataProvider>
+  // Wrap the app with Redux Provider
+  <Provider store={store}>
+    <App />
+  </Provider>
+  
   // </React.StrictMode>,
 );

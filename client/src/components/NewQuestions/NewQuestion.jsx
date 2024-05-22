@@ -1,14 +1,11 @@
-import React, { useContext, useState } from "react";
-import { DataContext } from "../Context/DataContext";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import EditQuestion from "../EditQuestion/EditQuestion";
 import axios from "axios";
+import { updateQuestion, deleteQuestion } from "../Redux/questionsSlice";
 
-const NewQuestion = ({ ques, onDelete }) => {
-  // Destructuring
-  const { question, option1, option2, option3, option4, ans } = ques;
-
-  // Use useContext to access quesData from DataContext
-  const { setQuesData } = useContext(DataContext);
+const NewQuestion = ({ ques }) => {
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
 
   // Update operation
@@ -17,10 +14,13 @@ const NewQuestion = ({ ques, onDelete }) => {
   };
 
   const handleSave = (updatedQues) => {
-    setQuesData((prevQuesData) =>
-      prevQuesData.map((q) => (q.id === updatedQues.id ? updatedQues : q))
-    );
-    setIsEditing(false);
+    axios
+      .put(`http://localhost:3030/update/${updatedQues.id}`, updatedQues)
+      .then((res) => {
+        dispatch(updateQuestion({ id: updatedQues.id, data: updatedQues }));
+        setIsEditing(false);
+      })
+      .catch((err) => console.error(err));
   };
 
   const handleCancel = () => {
@@ -32,7 +32,7 @@ const NewQuestion = ({ ques, onDelete }) => {
     axios
       .delete(`http://localhost:3030/delete/${ques.id}`)
       .then((res) => {
-        onDelete(ques.id);
+        dispatch(deleteQuestion(ques.id));
       })
       .catch((err) => console.error(err));
   };
@@ -48,13 +48,13 @@ const NewQuestion = ({ ques, onDelete }) => {
           />
         ) : (
           <div className="card-body">
-            <h2 className="card-title pb-4">{question}</h2>
-            <p className="text-xl text-start">1. {option1}</p>
-            <p className="text-xl text-start">2. {option2}</p>
-            <p className="text-xl text-start">3. {option3}</p>
-            <p className="text-xl text-start">4. {option4}</p>
+            <h2 className="card-title pb-4">{ques.question}</h2>
+            <p className="text-xl text-start">1. {ques.option1}</p>
+            <p className="text-xl text-start">2. {ques.option2}</p>
+            <p className="text-xl text-start">3. {ques.option3}</p>
+            <p className="text-xl text-start">4. {ques.option4}</p>
             <p className="text-xl font-semibold text-slate-300 mt-5 text-start pb-6">
-              Answer: {ans}
+              Answer: {ques.ans}
             </p>
             <span className="flex">
               <button
@@ -63,7 +63,9 @@ const NewQuestion = ({ ques, onDelete }) => {
               >
                 EDIT
               </button>
-              <button className="bg-red-600 py-2" onClick={handleDelete}>DELETE</button>
+              <button className="bg-red-600 py-2" onClick={handleDelete}>
+                DELETE
+              </button>
             </span>
           </div>
         )}

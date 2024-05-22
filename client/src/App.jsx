@@ -1,35 +1,35 @@
-import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './components/Home/Home';
-import Questions from './components/Questions/Questions';
-import AddQuestion from './components/AddQuestion/AddQuestion';
-import Layout from './layout/Layout';
-import NewQuestions from './components/NewQuestions/NewQuestions';
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./components/Home/Home";
+import Questions from "./components/Questions/Questions";
+import AddQuestion from "./components/AddQuestion/AddQuestion";
+import Layout from "./layout/Layout";
+import NewQuestions from "./components/NewQuestions/NewQuestions";
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <Layout />,
       children: [
         {
-          path: '/',
-          element: <Home />
+          path: "/",
+          element: <Home />,
         },
         {
-          path: '/addquestion',
-          element: <AddQuestion />
+          path: "/addquestion",
+          element: <AddQuestion />,
         },
         {
-          path: '/newquestion',
-          element: <NewQuestions />
+          path: "/newquestion",
+          element: <NewQuestions />,
         },
         {
-          path: '/allquestions',
-          element: <Questions />
-        }
-      ]
-    }
+          path: "/allquestions",
+          element: <Questions />,
+        },
+      ],
+    },
   ]);
 
   return (
@@ -39,4 +39,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
