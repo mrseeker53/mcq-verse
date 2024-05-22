@@ -14,8 +14,9 @@ const AddQuestion = () => {
   const onSubmit = (formData) => {
     // Send form data to the server
     axios
-      .post("http://localhost:3000/addQuestion", formData)
+      .post("http://localhost:3030/addQuestion", formData)
       .then((res) => {
+        console.log(res);
         dispatch(addQuestion(res.data.data));
         // Reset the form after submission
         reset();
