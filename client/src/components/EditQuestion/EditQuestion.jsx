@@ -5,6 +5,7 @@ import { updateQuestion } from "../Redux/questionsSlice";
 import axios from "axios";
 
 const EditQuestion = ({ ques, onSave, onCancel }) => {
+  const dispatch = useDispatch();
   // Initialize the useForm hook
   const { register, handleSubmit, setValue } = useForm();
 

@@ -14,7 +14,7 @@ const AddQuestion = () => {
   const onSubmit = (formData) => {
     // Send form data to the server
     axios
-      .post("http://localhost:3030/addQuestion", formData)
+      .post("http://localhost:3030/addquestion", formData)
       .then((res) => {
         console.log(res);
         dispatch(addQuestion(res.data.data));

@@ -20,7 +20,7 @@ const NewQuestions = () => {
 
   return (
     <div className="bg-slate-600 py-20 px-0 md:px-24">
-      <div className="container px-20">
+      <div className="container pl-16 md:px-20">
         <span className="label-text text-slate-200 text-3xl">
           New Questions
         </span>

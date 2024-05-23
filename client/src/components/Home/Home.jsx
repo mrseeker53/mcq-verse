@@ -1,10 +1,10 @@
 import React from 'react';
-import Questions from '../Questions/Questions';
+import SearchBar from '../SearchBar/SearchBar';
 
 const Home = () => {
     return (
         <div>
-            <Questions/>
+            <SearchBar/>
         </div>
     );
 }
