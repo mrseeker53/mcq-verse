@@ -22,12 +22,18 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
   }, [ques, setValue]);
 
   const onSubmit = (formData) => {
+    // Add the current date to the formData
+    const formDataWithDate = {
+      ...formData,
+      updated_at: new Date().toISOString(), // Add current date in ISO format
+    };
+
     if (ques && ques.id) {
       axios
-        .put(`http://localhost:3030/update/${ques.id}`, formData)
+        .put(`http://localhost:3030/update/${ques.id}`, formDataWithDate)
         .then((res) => {
-          dispatch(updateQuestion({ id: ques.id, data: formData }));
-          onSave({ ...formData, id: ques.id }); // Pass the updated data back to the parent
+          dispatch(updateQuestion({ id: ques.id, data: formDataWithDate }));
+          onSave({ ...formDataWithDate, id: ques.id }); // Pass the updated data back to the parent
         })
         .catch((err) => console.error(err));
     } else {

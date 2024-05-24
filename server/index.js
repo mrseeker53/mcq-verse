@@ -7,9 +7,9 @@ const app = express();
 const port = 3030;
 
 // Middlewares
-// Use app to pass data as json format
+// Parse JSON bodies
 app.use(express.json());
-// Use app with cors to secure the server connection
+// Secure the server connection
 app.use(cors());
 
 // Mysql connection
@@ -65,7 +65,7 @@ app.post("/addquestion", (req, res) => {
 // Update data
 app.put("/update/:id", (req, res) => {
   const sql =
-    "UPDATE mcq SET question = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ?, ans = ? WHERE id = ?";
+    "UPDATE mcq SET question = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ?, ans = ?, updated_at = ? WHERE id = ?";
   const values = [
     req.body.question,
     req.body.option1,
@@ -73,6 +73,7 @@ app.put("/update/:id", (req, res) => {
     req.body.option3,
     req.body.option4,
     req.body.ans,
+    req.body.updated_at
   ];
   const id = req.params.id;
   db.query(sql, [...values, id], (err, data) => {
@@ -80,7 +81,7 @@ app.put("/update/:id", (req, res) => {
       console.error(err);
       return res.json({ Error: "Error updating data" });
     }
-    return res.json({ Message: "Data updated successfully", data });
+    return res.status(200).json({ Message: "Data updated successfully", data });
   });
 });
 
