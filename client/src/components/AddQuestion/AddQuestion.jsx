@@ -12,9 +12,15 @@ const AddQuestion = () => {
 
   // Function to submit the form data using Axios
   const onSubmit = (formData) => {
-    // Send form data to the server
+    // Add the current date to the formData
+    const formDataWithDate = {
+      ...formData,
+      created_at: new Date().toISOString(), // Add current date in ISO format
+    };
+
+    // Send form data with date to the server
     axios
-      .post("http://localhost:3030/addquestion", formData)
+      .post("http://localhost:3030/addquestion", formDataWithDate)
       .then((res) => {
         console.log(res);
         dispatch(addQuestion(res.data.data));

@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 // Create data: Route to handle form data submission
 app.post("/addquestion", (req, res) => {
   const sql =
-    "INSERT INTO mcq (question, option1, option2, option3, option4, ans) VALUES (?, ?, ?, ?, ?, ?)";
+    "INSERT INTO mcq (question, option1, option2, option3, option4, ans, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
   const values = [
     req.body.question,
     req.body.option1,
@@ -51,13 +51,14 @@ app.post("/addquestion", (req, res) => {
     req.body.option3,
     req.body.option4,
     req.body.ans,
+    req.body.created_at,
   ];
   db.query(sql, values, (err, data) => {
     if (err) {
       console.error(err);
       return res.json({ Error: "Error inserting data" });
     }
-    return res.json({ Message: "Data inserted successfully", data });
+    return res.status(200).json({ Message: "Data inserted successfully", data });
   });
 });
 
