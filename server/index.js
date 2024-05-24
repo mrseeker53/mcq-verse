@@ -28,7 +28,7 @@ db.connect((err) => {
   console.log("Connected to MySQL");
 });
 
-// Read data
+// Read: Route to handle displaying for all data
 app.get("/", (req, res) => {
   const sql = "SELECT * FROM mcq";
   db.query(sql, (err, data) => {
@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// Create data: Route to handle form data submission
+// Create: Route to handle form data submission
 app.post("/addquestion", (req, res) => {
   const sql =
     "INSERT INTO mcq (question, option1, option2, option3, option4, ans, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -62,7 +62,7 @@ app.post("/addquestion", (req, res) => {
   });
 });
 
-// Update data
+// Update: Route to handle updating for data with id
 app.put("/update/:id", (req, res) => {
   const sql =
     "UPDATE mcq SET question = ?, option1 = ?, option2 = ?, option3 = ?, option4 = ?, ans = ?, updated_at = ? WHERE id = ?";
@@ -85,7 +85,7 @@ app.put("/update/:id", (req, res) => {
   });
 });
 
-// Delete data
+// Delete: Route to handle deleting for data with id
 app.delete("/delete/:id", (req, res) => {
   const sql = "DELETE FROM mcq WHERE id = ?";
   const id = req.params.id;
@@ -100,6 +100,25 @@ app.delete("/delete/:id", (req, res) => {
     return res.status(200).json({ message: "Data deleted successfully", data });
   });
 });
+
+// Search: Route to handle searching for data with a date range
+app.get("/search", (req, res) => {
+  const startDate = req.query.startDate;
+  const endDate = req.query.endDate;
+  
+  // Construct SQL query to search questions by date range
+  const sql = "SELECT * FROM mcq WHERE created_at BETWEEN ? AND ?";
+  const values = [startDate, endDate];
+
+  db.query(sql, values, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Error searching questions by date range" });
+    }
+    return res.status(200).json({ message: "Questions searched successfully by date range", data });
+  });
+});
+
 
 // Set the server listening port as 3030
 app.listen(port, () => {

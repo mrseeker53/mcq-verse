@@ -1,8 +1,9 @@
 // Import necessary modules from React and Redux
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchQuestions } from "../Redux/questionsSlice";
+import { searchQuestionsByKeyword } from "../Redux/questionsSlice";
 import SearchedQuestion from "./SearchedQuestion";
+import DateRangeSearch from "../DateRangeSearch/DateRangeSearch";
 
 const SearchBar = () => {
   // Initialize dispatch function to dispatch actions
@@ -14,7 +15,7 @@ const SearchBar = () => {
 
   // Fetch questions when the component mounts
   useEffect(() => {
-    dispatch(fetchQuestions());
+    dispatch(searchQuestionsByKeyword());
   }, [dispatch]);
 
   // Handle input change and update the query state
@@ -38,8 +39,10 @@ const SearchBar = () => {
           value={query}
           onChange={handleChange}
           placeholder="Search questions by keyword..."
-          className="input bg-slate-500 text-slate-100 text-lg w-full text-center mb-12"
+          className="input bg-slate-500 text-slate-100 text-xl w-full text-center"
         />
+        {/* Search with Date range */}
+        <DateRangeSearch/>
         {/* Display loading, error, or filtered questions */}
         {loading && <div>Loading...</div>}
         {error && <div>Error: {error}</div>}

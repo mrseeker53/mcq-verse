@@ -2,27 +2,36 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Create an async thunk to fetch questions from the server
-export const fetchQuestions = createAsyncThunk(
-  "questions/fetchQuestions",
+// Redux action: Async thunk to search questions by keyword
+export const searchQuestionsByKeyword = createAsyncThunk(
+  "questions/searchQuestionsByKeyword",
   async () => {
     // Replace the URL with your API endpoint
-    const response = await axios.get("http://localhost:3030")
+    const response = await axios.get("http://localhost:3030");
     return response.data.data;
   }
 );
 
-// Initial state for the questions slice
-const initialState = {
-  questions: [],
-  loading: false,
-  error: null,
-};
+// Redux action: Async thunk to search questions by date range
+export const searchQuestionsByDate = createAsyncThunk(
+  "questions/searchQuestionsByDate",
+  async ({ startDate, endDate }) => {
+    const response = await axios.get(
+      `http://localhost:3030/search?startDate=${startDate}&endDate=${endDate}`
+    );
+    return response.data.data;
+  }
+);
 
-// Create a slice for questions with initial state, reducers, and extra reducers for async actions
+// Create the questions slice for the questions state
 const questionsSlice = createSlice({
   name: "questions",
-  initialState,
+  initialState: {
+    questions: [],
+    loading: false,
+    error: null,
+    searchResults: [],
+  },
   reducers: {
     // Reducer to set the questions array
     setQuestions: (state, action) => {
@@ -48,15 +57,29 @@ const questionsSlice = createSlice({
   // Handle asynchronous actions in extraReducers
   extraReducers: (builder) => {
     builder
-      .addCase(fetchQuestions.pending, (state) => {
+      // Search questions by keyword
+      .addCase(searchQuestionsByKeyword.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchQuestions.fulfilled, (state, action) => {
+      .addCase(searchQuestionsByKeyword.fulfilled, (state, action) => {
         state.questions = action.payload;
         state.loading = false;
       })
-      .addCase(fetchQuestions.rejected, (state, action) => {
+      .addCase(searchQuestionsByKeyword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      // Search questions by Date
+      .addCase(searchQuestionsByDate.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(searchQuestionsByDate.fulfilled, (state, action) => {
+        state.questions = action.payload;
+        state.loading = false;
+      })
+      .addCase(searchQuestionsByDate.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
