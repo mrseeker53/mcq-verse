@@ -11,24 +11,36 @@ const AddQuestion = () => {
   const { register, handleSubmit, reset } = useForm();
 
   // Function to submit the form data using Axios
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     // Add the current date to the formData
     const formDataWithDate = {
       ...formData,
-      created_at: new Date().toISOString(), // Add current date in ISO format
+      created_at: new Date().toISOString().split("T")[0], // Get only the date part in YYYY-MM-DD format
+      updated_at: new Date().toISOString().split("T")[0] // Add updated_at field
     };
-
+    
     // Send form data with date to the server
-    axios
-      .post("http://localhost:3030/addquestion", formDataWithDate)
-      .then((res) => {
-        console.log(res);
+    try {
+      const res = await axios.post("http://localhost:3030/addquestion", formDataWithDate);
+
+      if (res.data?.data) {
         dispatch(addQuestion(res.data.data));
-        // Reset the form after submission
         reset();
-      })
-      .catch((err) => console.error(err));
+      } else if (res.data?.Error) {
+        console.error("Server responded with an error:", res.data.Error);
+      } else {
+        console.error("Unexpected response structure:", res.data);
+      }
+    } catch (err) {
+      console.error("Error in Axios request:", err);
+      if (err.response) {
+        console.error("Error response data:", err.response.data);
+      } else {
+        console.error("No response data");
+      }
+    }
   };
+  
 
   return (
     <div className="hero bg-slate-600">

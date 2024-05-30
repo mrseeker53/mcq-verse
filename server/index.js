@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 // Create: Route to handle form data submission
 app.post("/addquestion", (req, res) => {
   const sql =
-    "INSERT INTO mcq (question, option1, option2, option3, option4, ans, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO mcq (question, option1, option2, option3, option4, ans, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
   const values = [
     req.body.question,
     req.body.option1,
@@ -52,15 +52,25 @@ app.post("/addquestion", (req, res) => {
     req.body.option4,
     req.body.ans,
     req.body.created_at,
+    req.body.updated_at // Set updated_at to the same value as created_at
   ];
-  db.query(sql, values, (err, data) => {
+  db.query(sql, values, (err, result) => {
     if (err) {
       console.error(err);
-      return res.json({ Error: "Error inserting data" });
+      return res.json({ Error: "Error inserting data", Details: err.message });
     }
-    return res.status(200).json({ Message: "Data inserted successfully", data });
+    const insertedId = result.insertId;
+    const selectSql = "SELECT * FROM mcq WHERE id = ?";
+    db.query(selectSql, [insertedId], (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.json({ Error: "Error retrieving inserted data", Details: err.message });
+      }
+      return res.status(200).json({ Message: "Data inserted successfully", data: data[0] });
+    });
   });
 });
+
 
 // Update: Route to handle updating for data with id
 app.put("/update/:id", (req, res) => {
