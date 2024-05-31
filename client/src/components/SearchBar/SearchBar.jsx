@@ -1,4 +1,3 @@
-// Import necessary modules from React and Redux
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchQuestionsByKeyword } from "../Redux/questionsSlice";
@@ -28,7 +27,7 @@ const SearchBar = () => {
     ? questions.filter((ques) =>
         ques.question.toLowerCase().includes(query.toLowerCase())
       )
-    : questions.slice(0, 1); // Display only the first question if search query is empty
+    : questions.slice(0, 0); // Display only the first question if search query is empty
 
   return (
     <div className="bg-slate-600 py-24 px-0 md:px-24">

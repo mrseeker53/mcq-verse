@@ -23,7 +23,11 @@ const DateRangeSearch = () => {
 
   // Dispatch action to search questions by date range
   const handleSearch = () => {
-    dispatch(searchQuestionsByDate({ startDate, endDate }));
+    if (startDate && endDate) {
+      dispatch(searchQuestionsByDate({ startDate, endDate }));
+    } else {
+      alert("Please select both start and end dates"); // Simple validation on the client side
+    }
   };
 
   return (

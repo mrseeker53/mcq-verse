@@ -113,16 +113,20 @@ app.delete("/delete/:id", (req, res) => {
 
 // Search: Route to handle searching for data with a date range
 app.get("/search", (req, res) => {
-  const startDate = req.query.startDate;
-  const endDate = req.query.endDate;
-  
+  const { startDate, endDate } = req.query; // Destructure startDate and endDate from query parameters
+
+  // Validate the date inputs
+  if (!startDate || !endDate) {
+    return res.status(400).json({ error: "Both startDate and endDate are required" });
+  }
+
   // Construct SQL query to search questions by date range
   const sql = "SELECT * FROM mcq WHERE created_at BETWEEN ? AND ?";
   const values = [startDate, endDate];
 
   db.query(sql, values, (err, data) => {
     if (err) {
-      console.error(err);
+      console.error("Database error:", err); // Improved error logging
       return res.status(500).json({ error: "Error searching questions by date range" });
     }
     return res.status(200).json({ message: "Questions searched successfully by date range", data });

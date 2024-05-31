@@ -15,11 +15,15 @@ export const searchQuestionsByKeyword = createAsyncThunk(
 // Redux action: Async thunk to search questions by date range
 export const searchQuestionsByDate = createAsyncThunk(
   "questions/searchQuestionsByDate",
-  async ({ startDate, endDate }) => {
-    const response = await axios.get(
-      `http://localhost:3030/search?startDate=${startDate}&endDate=${endDate}`
-    );
-    return response.data.data;
+  async ({ startDate, endDate }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3030/search?startDate=${startDate}&endDate=${endDate}`
+      );
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data); // Handle error properly
+    }
   }
 );
 
@@ -30,7 +34,7 @@ const questionsSlice = createSlice({
     questions: [],
     loading: false,
     error: null,
-    searchResults: [],
+    searchResults: [], // Separate searchResults from questions
   },
   reducers: {
     // Reducer to set the questions array
@@ -76,12 +80,12 @@ const questionsSlice = createSlice({
         state.error = null;
       })
       .addCase(searchQuestionsByDate.fulfilled, (state, action) => {
-        state.questions = action.payload;
+        state.searchResults = action.payload; // Update searchResults instead of questions
         state.loading = false;
       })
       .addCase(searchQuestionsByDate.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message; // Handle errors correctly
       });
   },
 });
