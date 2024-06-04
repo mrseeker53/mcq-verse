@@ -4,74 +4,83 @@ import EditQuestion from "../EditQuestion/EditQuestion";
 import axios from "axios";
 import { updateQuestion, deleteQuestion } from "../Redux/questionsSlice";
 
-const NewQuestion = ({ ques }) => {
-  const dispatch = useDispatch();
-  const [isEditing, setIsEditing] = useState(false);
+const NewQuestion = ({ ques, serialNumber }) => {
+	const dispatch = useDispatch();
+	const [isEditing, setIsEditing] = useState(false);
 
-  // Update operation
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
+	// Update operation
+	const handleEditClick = () => {
+		setIsEditing(true);
+	};
 
-  const handleSave = (updatedQues) => {
-    axios
-      .put(`http://localhost:3030/update/${updatedQues.id}`, updatedQues)
-      .then((res) => {
-        dispatch(updateQuestion({ id: updatedQues.id, data: updatedQues }));
-        setIsEditing(false);
-      })
-      .catch((err) => console.error(err));
-  };
+	const handleSave = (updatedQues) => {
+		axios
+			.put(`http://localhost:3030/update/${updatedQues.id}`, updatedQues)
+			.then((res) => {
+				dispatch(updateQuestion({ id: updatedQues.id, data: updatedQues }));
+				setIsEditing(false);
+			})
+			.catch((err) => console.error(err));
+	};
 
-  const handleCancel = () => {
-    setIsEditing(false);
-  };
+	const handleCancel = () => {
+		setIsEditing(false);
+	};
 
-  // Delete operation
-  const handleDelete = () => {
-    axios
-      .delete(`http://localhost:3030/delete/${ques.id}`)
-      .then((res) => {
-        dispatch(deleteQuestion(ques.id));
-      })
-      .catch((err) => console.error(err));
-  };
+	// Delete operation
+	const handleDelete = () => {
+		const confirmDelete = window.confirm(
+			"Are you sure you want to delete this question?"
+		);
+		if (confirmDelete) {
+			axios
+				.delete(`http://localhost:3030/delete/${ques.id}`)
+				.then((res) => {
+					dispatch(deleteQuestion(ques.id));
+				})
+				.catch((err) => console.error(err));
+		}
+	};
 
-  return (
-    <div className="container">
-      <div className="card w-full bg-slate-550 shadow-xl ml-1">
-        {isEditing ? (
-          <EditQuestion
-            ques={ques}
-            onSave={handleSave}
-            onCancel={handleCancel}
-          />
-        ) : (
-          <div className="card-body">
-            <h2 className="card-title pb-4">{ques.question}</h2>
-            <p className="text-xl text-start">1. {ques.option1}</p>
-            <p className="text-xl text-start">2. {ques.option2}</p>
-            <p className="text-xl text-start">3. {ques.option3}</p>
-            <p className="text-xl text-start">4. {ques.option4}</p>
-            <p className="text-xl font-semibold text-slate-300 mt-5 text-start pb-6">
-              Answer: {ques.ans}
-            </p>
-            <span className="flex">
-              <button
-                className="btn btn-primary w-24 mr-6"
-                onClick={handleEditClick}
-              >
-                EDIT
-              </button>
-              <button className="bg-red-600 py-2" onClick={handleDelete}>
-                DELETE
-              </button>
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+	return (
+		<div className="container">
+			<div className="card w-full bg-slate-700 shadow-2xl ml-1 my-12">
+				{isEditing ? (
+					<EditQuestion
+						ques={ques}
+						onSave={handleSave}
+						onCancel={handleCancel}
+					/>
+				) : (
+					<div className="card-body text-start">
+						<h2 className="card-title text-2xl">
+							{serialNumber}. {ques.question}
+						</h2>
+						<div className="text-xl pl-7 py-4">
+							<p>a. {ques.option1}</p>
+							<p>b. {ques.option2}</p>
+							<p>c. {ques.option3}</p>
+							<p>d. {ques.option4}</p>
+						</div>
+						<p className="text-xl font-bold text-slate-400 pb-6">
+							Answer: {ques.ans}
+						</p>
+						<span className="flex">
+							<button
+								className="btn btn-primary w-24 mr-6"
+								onClick={handleEditClick}
+							>
+								EDIT
+							</button>
+							<button className="bg-red-600 py-2" onClick={handleDelete}>
+								DELETE
+							</button>
+						</span>
+					</div>
+				)}
+			</div>
+		</div>
+	);
 };
 
 export default NewQuestion;

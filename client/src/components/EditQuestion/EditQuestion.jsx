@@ -43,7 +43,8 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* Question */}
+      <div className="px-8 md:px-8 py-8">
+        {/* Question */}
       <div className="form-control">
         <input
           type="text"
@@ -55,7 +56,7 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
         />
       </div>
       {/* Options */}
-      <div className="form-control py-5">
+      <div className="form-control py-8">
         <label className="label cursor-pointer">
           <span className="label-text text-lg">
             1.
@@ -133,6 +134,7 @@ const EditQuestion = ({ ques, onSave, onCancel }) => {
         >
           CANCEL
         </button>
+      </div>
       </div>
     </form>
   );
