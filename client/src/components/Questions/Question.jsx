@@ -1,24 +1,24 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 
-const Question = ({ quiz }) => {
-    // Destructuring
-    const { question, option1, option2, option3, option4, ans } = quiz;
-
-    return (
-        <div className="container">
-            <div className="card w-full bg-slate-550 shadow-xl ml-1">
-                <div className="card-body">
-                    <h2 className="card-title pb-4">{question}</h2>
-                    <p className='text-xl text-start'>1. {option1}</p>
-                    <p className='text-xl text-start'>2. {option2}</p>
-                    <p className='text-xl text-start'>3. {option3}</p>
-                    <p className='text-xl text-start'>4. {option4}</p>
-                    <p className='text-xl font-semibold text-slate-300 mt-5 text-start'>Answer: {ans}</p>
-                </div>
-            </div>
-        </div>
-    );
+const Question = ({ ques, serialNumber }) => {
+	return (
+		<div className="container">
+			<div className="card bg-slate-700 shadow-xl ml-1 mt-12">
+				<div className="card-body text-start">
+					<h2 className="card-title text-2xl">
+						{serialNumber}. {ques.question}
+					</h2>
+					<div className="text-xl pl-7 py-5">
+						<p>a. {ques.option1}</p>
+						<p>b. {ques.option2}</p>
+						<p>c. {ques.option3}</p>
+						<p>d. {ques.option4}</p>
+					</div>
+					<p className="text-xl font-bold text-slate-400">Answer: {ques.ans}</p>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Question;
