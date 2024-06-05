@@ -16,9 +16,6 @@ const Navbar = () => {
           <li className="px">
             <Link to="/addquestion">Add Question</Link>
           </li>
-          <li className="px">
-            <Link to="/newquestion">New Question</Link>
-          </li>
           <li>
             <Link to="/allquestions">All Questions</Link>
           </li>

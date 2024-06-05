@@ -54,17 +54,17 @@ const AddQuestion = () => {
 	};
 
 	return (
-		<div className="bg-slate-800 pt-20 pb-10 px-0 md:px-24">
-			<div className="container pl-16 md:px-20">
+		<div className="bg-slate-800 py-20 px-0 md:px-24">
+			<div className="container pl-24 md:pl-16 md:px-20">
 				<span className="label-text text-slate-200 text-3xl">
 					Add The Question
 				</span>
 				<hr className="mt-4 mx-20 md:mx-64" />
 				{/* Add the question */}
-				<form className="py-24" onSubmit={handleSubmit(onSubmit)}>
+				<form className="pt-16" onSubmit={handleSubmit(onSubmit)}>
 					{/* Title & Question */}
 					<div className="form-control">
-							<span className="label-text text-lg">
+							<span className="label-text text-xl text-start">Question :
 								<input
 									type="text"
 									name="question"
@@ -76,8 +76,8 @@ const AddQuestion = () => {
 							</span>
 					</div>
 					{/* Options & Answer */}
-					<div className="form-control py-5">
-							<span className="label-text text-lg">
+					<div className="form-control pt-6">
+							<span className="label-text text-xl text-start">Options : <span className="text-sm">(Enter four options with commas)</span>
 								<input
 									type="text"
 									name="options"
@@ -87,20 +87,18 @@ const AddQuestion = () => {
 									required
 								/>
 							</span>
-						<label className="label pt-7">
-							<span className="label-text text-lg">
+							<span className="label-text text-xl text-start pt-6">Answer :
 								<input
 									type="text"
 									name="ans"
 									placeholder="Answer"
-									className="input bg-slate-500 text-slate-100 text-lg w-full"
+									className="input bg-slate-500 text-slate-100 text-lg w-96 flex place-items-start"
 									{...register("ans")}
 									required
 								/>
 							</span>
-						</label>
 					</div>
-					<div className="form-control pt-6 pl-1">
+					<div className="form-control pt-10">
 						<button className="btn btn-primary w-24" type="submit">
 							SAVE
 						</button>

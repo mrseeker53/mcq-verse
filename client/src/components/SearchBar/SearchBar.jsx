@@ -31,7 +31,7 @@ const SearchBar = () => {
 
 	return (
 		<div className="bg-slate-800 py-24 px-0 md:px-24">
-			<div className="container pl-16 md:px-32">
+			<div className="container pl-24 md:pl-16 md:px-20">
 				{/* Search input field */}
 				<p className="text-2xl underline underline-offset-8 pb-6">
 					Search By Keyword

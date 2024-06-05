@@ -4,7 +4,6 @@ import Home from "./components/Home/Home";
 import Questions from "./components/Questions/Questions";
 import AddQuestion from "./components/AddQuestion/AddQuestion";
 import Layout from "./layout/Layout";
-import NewQuestions from "./components/NewQuestions/NewQuestions";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,10 +18,6 @@ function App() {
         {
           path: "/addquestion",
           element: <AddQuestion />,
-        },
-        {
-          path: "/newquestion",
-          element: <NewQuestions />,
         },
         {
           path: "/allquestions",

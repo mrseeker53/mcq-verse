@@ -31,8 +31,9 @@ const DateRangeSearch = () => {
 	};
 
 	return (
-		<div className="bg-slate-800 pt-12 rounded-lg px-0 md:px-24">
-			<div className="container grid-flow-row">
+		<div className="bg-slate-800 pt-12 rounded-lg">
+			<div className="container">
+			{/* <div className="container pl-24 md:pl-16 md:px-20"> */}
 				<p className="text-2xl underline underline-offset-8 pb-6">
 					Search By Date Range
 				</p>
@@ -60,7 +61,7 @@ const DateRangeSearch = () => {
 					{error && <p>Error: {error}</p>}
 					<div className="search-results">
 						{searchResults.map((ques, index) => (
-							<div key={ques.id} className="card bg-slate-700 shadow-xl ml-1 my-12">
+							<div key={ques.id} className="card bg-slate-700 shadow-xl ml-1 mt-12">
 								<div className="card-body text-start">
 									<h2 className="card-title text-2xl">
 										{index + 1}. {ques.question}
@@ -71,7 +72,7 @@ const DateRangeSearch = () => {
 										<p>c. {ques.option3}</p>
 										<p>d. {ques.option4}</p>
 									</div>
-									<p className="text-xl font-bold text-slate-400 pb-10">
+									<p className="text-xl font-bold text-slate-400">
 										Answer: {ques.ans}
 									</p>
 								</div>
