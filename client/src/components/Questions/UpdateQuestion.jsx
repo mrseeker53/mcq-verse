@@ -3,10 +3,13 @@ import { useDispatch } from "react-redux";
 import EditQuestion from "../EditQuestion/EditQuestion";
 import axios from "axios";
 import { updateQuestion, deleteQuestion } from "../Redux/questionsSlice";
+import toast from "react-hot-toast";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const UpdateQuestion = ({ ques, serialNumber }) => {
 	const dispatch = useDispatch();
 	const [isEditing, setIsEditing] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 
 	// Update operation
 	const handleEditClick = () => {
@@ -19,6 +22,7 @@ const UpdateQuestion = ({ ques, serialNumber }) => {
 			.then((res) => {
 				dispatch(updateQuestion({ id: updatedQues.id, data: updatedQues }));
 				setIsEditing(false);
+				toast.success("Question updated successfully");
 			})
 			.catch((err) => console.error(err));
 	};
@@ -29,17 +33,18 @@ const UpdateQuestion = ({ ques, serialNumber }) => {
 
 	// Delete operation
 	const handleDelete = () => {
-		const confirmDelete = window.confirm(
-			"Are you sure you want to delete this question?"
-		);
-		if (confirmDelete) {
-			axios
-				.delete(`http://localhost:3030/delete/${ques.id}`)
-				.then((res) => {
-					dispatch(deleteQuestion(ques.id));
-				})
-				.catch((err) => console.error(err));
-		}
+		setShowModal(true);
+	};
+
+	const confirmDelete = () => {
+		axios
+			.delete(`http://localhost:3030/delete/${ques.id}`)
+			.then((res) => {
+				dispatch(deleteQuestion(ques.id));
+				toast.success("Question deleted successfully");
+			})
+			.catch((err) => console.error(err));
+		setShowModal(false);
 	};
 
 	return (
@@ -67,7 +72,7 @@ const UpdateQuestion = ({ ques, serialNumber }) => {
 						</p>
 						<span className="flex pt-6">
 							<button
-								className="btn btn-info w-24 mr-6"
+								className="btn btn-primary w-24 mr-6"
 								onClick={handleEditClick}
 							>
 								EDIT
@@ -79,6 +84,11 @@ const UpdateQuestion = ({ ques, serialNumber }) => {
 					</div>
 				)}
 			</div>
+			<DeleteConfirmationModal
+				isOpen={showModal}
+				onClose={() => setShowModal(false)}
+				onDelete={confirmDelete}
+			/>
 		</div>
 	);
 };

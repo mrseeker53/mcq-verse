@@ -5,6 +5,7 @@ import Questions from "./components/Questions/Questions";
 import AddQuestion from "./components/AddQuestion/AddQuestion";
 import Layout from "./layout/Layout";
 import UpdateQuestions from "./components/Questions/UpdateQuestions";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const router = createBrowserRouter([
@@ -35,6 +36,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router}></RouterProvider>
+      <Toaster></Toaster>
     </div>
   );
 }
