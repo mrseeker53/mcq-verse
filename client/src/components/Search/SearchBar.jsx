@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchQuestionsByKeyword } from "../Redux/questionsSlice";
 import SearchedQuestion from "./SearchedQuestion";
-import DateRangeSearch from "../DateRangeSearch/DateRangeSearch";
+import DateRangeSearch from "./DateRangeSearch";
 
 const SearchBar = () => {
 	// Initialize dispatch function to dispatch actions
@@ -44,7 +44,7 @@ const SearchBar = () => {
 					className="input bg-slate-700 text-slate-100 text-xl w-full text-center mb-10"
 				/>
 				{/* Search with Date range */}
-				<DateRangeSearch />
+				{/* <DateRangeSearch /> */}
 				{/* Display loading, error, or filtered questions */}
 				{loading && <div>Loading...</div>}
 				{error && <div>Error: {error}</div>}

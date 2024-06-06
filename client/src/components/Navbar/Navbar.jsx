@@ -14,10 +14,10 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li className="px">
-            <Link to="/addquestion">Add Question</Link>
+            <Link to="/add-question">Add Question</Link>
           </li>
           <li>
-            <Link to="/allquestions">All Questions</Link>
+            <Link to="/all-questions">All Questions</Link>
           </li>
         </ul>
       </div>

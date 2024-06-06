@@ -1,10 +1,10 @@
 import React from 'react';
-import SearchBar from '../SearchBar/SearchBar';
+import Search from '../Search/SearchBar';
 
 const Home = () => {
     return (
         <div>
-            <SearchBar/>
+            <Search/>
         </div>
     );
 }
