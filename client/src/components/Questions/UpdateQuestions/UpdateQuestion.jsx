@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import EditQuestion from "../EditQuestion/EditQuestion";
+import EditQuestion from "../../EditQuestion/EditQuestion";
 import axios from "axios";
-import { updateQuestion, deleteQuestion } from "../Redux/questionsSlice";
+import { updateQuestion, deleteQuestion } from "../../Redux/questionsSlice";
 import toast from "react-hot-toast";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import DeleteConfirmationModal from "../Modal/DeleteConfirmationModal";
 
 const UpdateQuestion = ({ ques, serialNumber }) => {
 	const dispatch = useDispatch();

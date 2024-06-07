@@ -1,10 +1,10 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home/Home";
-import Questions from "./components/Questions/Questions";
+import AllQuestions from "./components/Questions/AllQuestions/AllQuestions";
 import AddQuestion from "./components/AddQuestion/AddQuestion";
 import Layout from "./layout/Layout";
-import UpdateQuestions from "./components/Questions/UpdateQuestions";
+import UpdateQuestions from "./components/Questions/UpdateQuestions/UpdateQuestions";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
         },
         {
           path: "/all-questions",
-          element: <Questions />,
+          element: <AllQuestions />,
         },
         {
           path: "/update-questions",

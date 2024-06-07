@@ -1,5 +1,5 @@
 import React from "react";
-import quizData from "../../assets/data.json";
+import quizData from "../../../assets/data.json";
 import DummyQuestion from "./DummyQuestion";
 
 const DummyQuestions = () => {

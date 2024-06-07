@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setQuestions } from "../Redux/questionsSlice";
+import { setQuestions } from "../../Redux/questionsSlice";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Question from "./Question";
-import DummyQuestions from "./DummyQuestions/DummyQuestions";
+import AllQuestion from "./AllQuestion";
+import DummyQuestions from "../DummyQuestions/DummyQuestions";
 
-const Questions = () => {
+const AllQuestions = () => {
 	const dispatch = useDispatch();
 	const questions = useSelector((state) => state.questions.questions);
+	const navigate = useNavigate();
 
 	// Fetch data from the backend
 	useEffect(() => {
@@ -19,6 +21,10 @@ const Questions = () => {
 			.catch((err) => console.error(err));
 	}, [dispatch]);
 
+	const handleUpdate = () => {
+		navigate("/update-questions");
+	};
+
 	return (
 		<div className="bg-slate-800 py-20 px-0 md:px-24">
 			<div className="container pl-24 md:pl-16 md:px-20">
@@ -26,12 +32,17 @@ const Questions = () => {
 					All Questions
 				</span>
 				<hr className="mt-4 mx-28 md:mx-80" />
+				<div className="flex justify-end py-2">
+					<button className="btn btn-primary w-24" onClick={handleUpdate}>
+						UPDATE
+					</button>
+				</div>
 				{
 					// Check if data is available and not empty
 					questions && questions.length > 0 ? (
 						// Map over data to render each question
 						questions.map((ques, index) => (
-							<Question key={index} ques={ques} serialNumber={index + 1} />
+							<AllQuestion key={index} ques={ques} serialNumber={index + 1} />
 						))
 					) : (
 						<DummyQuestions />
@@ -42,4 +53,4 @@ const Questions = () => {
 	);
 };
 
-export default Questions;
+export default AllQuestions;

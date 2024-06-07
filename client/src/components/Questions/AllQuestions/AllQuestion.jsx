@@ -1,9 +1,9 @@
 import React from "react";
 
-const Question = ({ ques, serialNumber }) => {
+const AllQuestion = ({ ques, serialNumber }) => {
 	return (
 		<div className="container">
-			<div className="card w-full bg-slate-700 shadow-2xl ml-1 mt-12">
+			<div className="card w-full bg-slate-700 shadow-2xl ml-1 mb-12">
 				<div className="card-body text-start">
 					<h2 className="card-title text-2xl">
 						{serialNumber}. {ques.question}
@@ -21,4 +21,4 @@ const Question = ({ ques, serialNumber }) => {
 	);
 };
 
-export default Question;
+export default AllQuestion;
