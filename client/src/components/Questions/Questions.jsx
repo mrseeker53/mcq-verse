@@ -20,7 +20,7 @@ const Questions = () => {
 	}, [dispatch]);
 
 	return (
-		<div className="bg-slate-800 py-20 px-0 md:px-24">
+		<div className="bg-slate-800 pb-20 px-0 md:px-24">
 			<div className="container pl-24 md:pl-16 md:px-20">
 				<span className="label-text text-slate-200 text-3xl">
 					All Questions

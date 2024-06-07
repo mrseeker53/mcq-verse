@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { searchQuestionsByDate } from "../Redux/questionsSlice";
 
-const DateRangeSearch = () => {
+const SearchByDateRange = ({ setIsSearching }) => {
 	const dispatch = useDispatch();
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
@@ -24,6 +25,7 @@ const DateRangeSearch = () => {
 	// Dispatch action to search questions by date range
 	const handleSearch = () => {
 		if (startDate && endDate) {
+			setIsSearching(true);
 			dispatch(searchQuestionsByDate({ startDate, endDate }));
 		} else {
 			alert("Please select both start and end dates"); // Simple validation on the client side
@@ -31,12 +33,8 @@ const DateRangeSearch = () => {
 	};
 
 	return (
-		<div className="bg-slate-800 pt-12 rounded-lg">
+		<div className="bg-slate-800 pt-10 rounded-lg">
 			<div className="container">
-			{/* <div className="container pl-24 md:pl-16 md:px-20"> */}
-				<p className="text-2xl underline underline-offset-8 pb-6">
-					Search By Date Range
-				</p>
 				<input
 					type="date"
 					value={startDate}
@@ -55,33 +53,31 @@ const DateRangeSearch = () => {
 					SEARCH
 				</button>
 			</div>
-      {/* Display search results */}
-				<div>
-					{loading && <p>Loading...</p>}
-					{error && <p>Error: {error}</p>}
-					<div className="search-results">
-						{searchResults.map((ques, index) => (
-							<div key={ques.id} className="card bg-slate-700 shadow-xl ml-1 mt-12">
-								<div className="card-body text-start">
-									<h2 className="card-title text-2xl">
-										{index + 1}. {ques.question}
-									</h2>
-									<div className="text-xl pl-7 py-6">
-										<p>a. {ques.option1}</p>
-										<p>b. {ques.option2}</p>
-										<p>c. {ques.option3}</p>
-										<p>d. {ques.option4}</p>
-									</div>
-									<p className="text-xl font-bold text-slate-400">
-										Answer: {ques.ans}
-									</p>
-								</div>
+			{/* Display Search Result */}
+			{loading && <p>Loading...</p>}
+			{error && <p>Error: {error}</p>}
+			<div className="search-results">
+				{searchResults.map((ques, index) => (
+					<div key={ques.id} className="card bg-slate-700 shadow-xl ml-1 mt-12">
+						<div className="card-body text-start">
+							<h2 className="card-title text-2xl">
+								{index + 1}. {ques.question}
+							</h2>
+							<div className="text-xl pl-7 py-6">
+								<p>a. {ques.option1}</p>
+								<p>b. {ques.option2}</p>
+								<p>c. {ques.option3}</p>
+								<p>d. {ques.option4}</p>
 							</div>
-						))}
+							<p className="text-xl font-bold text-slate-400">
+								Answer: {ques.ans}
+							</p>
+						</div>
 					</div>
-				</div>
+				))}
+			</div>
 		</div>
 	);
 };
 
-export default DateRangeSearch;
+export default SearchByDateRange;

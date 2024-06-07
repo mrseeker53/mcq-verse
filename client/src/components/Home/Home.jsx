@@ -1,13 +1,16 @@
-import React from 'react';
-import Search from '../Search/SearchBar';
+import React, { useState } from 'react';
+import SearchByKeyword from '../Search/SearchByKeyword';
+import Questions from '../Questions/Questions';
 
 const Home = () => {
+    const [isSearching, setIsSearching] = useState(false);
+
     return (
         <div>
-            {/* <Search/> */}
-            
+            <SearchByKeyword setIsSearching={setIsSearching} />
+            {!isSearching && <Questions />}
         </div>
     );
-}
+};
 
 export default Home;

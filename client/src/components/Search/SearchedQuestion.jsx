@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchedQuestion = ({ ques, serialNumber }) => {
 	return (
-		<div className="card bg-slate-700 shadow-xl ml-1 my-12">
+		<div className="card bg-slate-700 shadow-xl ml-1 mt-12">
 			<div className="card-body text-start">
 				<h2 className="card-title text-2xl">
 					{serialNumber}. {ques.question}
